@@ -1,80 +1,65 @@
 package br.unitins.tp1.capinha.service;
 
-import br.unitins.tp1.capinha.dto.CapinhaRequestDTO;
-import br.unitins.tp1.capinha.dto.CapinhaResponseDTO;
-import br.unitins.tp1.capinha.model.Capinha;
-import br.unitins.tp1.capinha.repository.CapinhaRepository;
-
+import br.unitins.tp1.capinha.dto.CategoriaRequestDTO;
+import br.unitins.tp1.capinha.dto.CategoriaResponseDTO;
+import br.unitins.tp1.capinha.model.Categoria;
+import br.unitins.tp1.capinha.repository.CategoriaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class CapinhaServiceImpl implements CapinhaService {
+public class CategoriaServiceImpl implements CategoriaService {
 
     @Inject
-    CapinhaRepository capinhaRepository;
+    CategoriaRepository categoriaRepository;
 
     @Override
-    public List<CapinhaResponseDTO> findAll() {
-        // Busca todas as capinhas do banco e converte para CapinhaResponseDTO
-        return capinhaRepository.listAll().stream()
-                .map(CapinhaResponseDTO::new)
+    public List<CategoriaResponseDTO> findAll() {
+        return categoriaRepository.listAll().stream()
+                .map(CategoriaResponseDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CapinhaResponseDTO findById(Long id) {
-        // Busca a capinha pelo ID e lança exceção se não for encontrada
-        Capinha capinha = capinhaRepository.findByIdOptional(id)
-                .orElseThrow(() -> new RuntimeException("Capinha não encontrada."));
-        return new CapinhaResponseDTO(capinha);
+    public CategoriaResponseDTO findById(Long id) {
+        Categoria categoria = categoriaRepository.findByIdOptional(id)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada."));
+        return new CategoriaResponseDTO(categoria);
     }
 
     @Override
     @Transactional
-    public CapinhaResponseDTO create(CapinhaRequestDTO dto) {
-        // Converte o DTO em uma entidade Capinha e salva no banco de dados
-        Capinha capinha = new Capinha();
-        capinha.setNome(dto.getNome());
-        capinha.setModelo(dto.getModelo());
-        capinha.setPreco(dto.getPreco());
+    public CategoriaResponseDTO create(CategoriaRequestDTO dto) {
+        Categoria categoria = new Categoria();
+        categoria.setNome(dto.getNome());
+        categoria.setDescricao(dto.getDescricao());
 
-        capinhaRepository.persist(capinha);
-        return new CapinhaResponseDTO(capinha);
+        categoriaRepository.persist(categoria);
+        return new CategoriaResponseDTO(categoria);
     }
 
     @Override
     @Transactional
-    public CapinhaResponseDTO update(Long id, CapinhaRequestDTO dto) {
-        // Busca a capinha pelo ID e atualiza com os dados do DTO
-        Capinha capinha = capinhaRepository.findByIdOptional(id)
-                .orElseThrow(() -> new RuntimeException("Capinha não encontrada."));
-        
-        capinha.setNome(dto.getNome());
-        capinha.setModelo(dto.getModelo());
-        capinha.setPreco(dto.getPreco());
+    public CategoriaResponseDTO update(Long id, CategoriaRequestDTO dto) {
+        Categoria categoria = categoriaRepository.findByIdOptional(id)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada."));
 
-        capinhaRepository.persist(capinha);
-        return new CapinhaResponseDTO(capinha);
+        categoria.setNome(dto.getNome());
+        categoria.setDescricao(dto.getDescricao());
+
+        categoriaRepository.persist(categoria);
+        return new CategoriaResponseDTO(categoria);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        // Remove a capinha pelo ID
-        Capinha capinha = capinhaRepository.findByIdOptional(id)
-                .orElseThrow(() -> new RuntimeException("Capinha não encontrada."));
-        capinhaRepository.delete(capinha);
-    }
-
-    @Override
-    public List<CapinhaResponseDTO> findByNome(String nome) {
-        // Busca capinhas pelo nome (ou parte dele)
-        return capinhaRepository.findByNome(nome).stream()
-                .map(CapinhaResponseDTO::new)
-                .collect(Collectors.toList());
+        Categoria categoria = categoriaRepository.findByIdOptional(id)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada."));
+        categoriaRepository.delete(categoria);
     }
 }
