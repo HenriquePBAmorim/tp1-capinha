@@ -72,8 +72,5 @@ public class Capinha extends DefaultEntity{
 
     public void setMaterial(Material material) {
         this.material = material;
-    }
-
-    // Enum Material com estrutura semelhante ao enum Sexo
-    
+    }    
 }
