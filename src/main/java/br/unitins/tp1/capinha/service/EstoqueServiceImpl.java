@@ -52,4 +52,10 @@ public class EstoqueServiceImpl implements EstoqueService {
     public void delete(Long id) {
         estoqueRepository.deleteById(id);
     }
+
+    // Implementação do método findByNomeProduto
+    @Override
+    public List<Estoque> findByNomeProduto(String nomeProduto) {
+        return estoqueRepository.findByNomeProduto(nomeProduto);
+    }
 }
