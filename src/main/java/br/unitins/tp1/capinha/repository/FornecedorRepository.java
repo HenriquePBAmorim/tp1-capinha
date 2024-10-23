@@ -15,7 +15,5 @@ public class FornecedorRepository implements PanacheRepository<Fornecedor> {
 
     public List<Fornecedor> findByCnpj(String cnpj) {
         return find("cnpj = ?1", cnpj).list();
-
-        
     }
 }

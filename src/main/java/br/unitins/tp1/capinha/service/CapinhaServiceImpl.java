@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.unitins.tp1.capinha.dto.CapinhaRequestDTO;
 import br.unitins.tp1.capinha.model.Capinha;
-import br.unitins.tp1.capinha.model.Material;
 import br.unitins.tp1.capinha.repository.CapinhaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -14,7 +13,7 @@ import jakarta.transaction.Transactional;
 public class CapinhaServiceImpl implements CapinhaService {
 
     @Inject
-    public CapinhaRepository capinhaRepository;
+    CapinhaRepository capinhaRepository;
 
     @Override
     public Capinha findById(Long id) {
@@ -22,8 +21,8 @@ public class CapinhaServiceImpl implements CapinhaService {
     }
 
     @Override
-    public List<Capinha> findByNome(String nome) {
-        return capinhaRepository.findByNome(nome);
+    public List<Capinha> findByTipoProtecao(String tipoProtecao) {
+        return capinhaRepository.findByTipoProtecao(tipoProtecao);
     }
 
     @Override
@@ -35,11 +34,9 @@ public class CapinhaServiceImpl implements CapinhaService {
     @Transactional
     public Capinha create(CapinhaRequestDTO dto) {
         Capinha capinha = new Capinha();
-        capinha.setTipoProtecao(dto.getTipoProtecao());
-        capinha.setCompatibilidadeCarregamento(dto.isCompatibilidadeCarregamento());
-        capinha.setPreco(dto.getPreco());
-        capinha.setDescricao(dto.getDescricao());
-        capinha.setMaterial(Material.valueOf(dto.getMaterialId()));
+        capinha.setTipoProtecao(dto.tipoProtecao());
+        capinha.setPreco(dto.preco());
+        capinha.setDescricao(dto.descricao());
 
         capinhaRepository.persist(capinha);
         return capinha;
@@ -49,13 +46,9 @@ public class CapinhaServiceImpl implements CapinhaService {
     @Transactional
     public Capinha update(Long id, CapinhaRequestDTO dto) {
         Capinha capinha = capinhaRepository.findById(id);
-
-        capinha.setTipoProtecao(dto.getTipoProtecao());
-        capinha.setCompatibilidadeCarregamento(dto.isCompatibilidadeCarregamento());
-        capinha.setPreco(dto.getPreco());
-        capinha.setDescricao(dto.getDescricao());
-        capinha.setMaterial(Material.valueOf(dto.getMaterialId()));
-
+        capinha.setTipoProtecao(dto.tipoProtecao());
+        capinha.setPreco(dto.preco());
+        capinha.setDescricao(dto.descricao());
         return capinha;
     }
 

@@ -8,8 +8,15 @@ public record PessoaJuridicaResponseDTO(Long id, String nome, String cnpj, Strin
         return new PessoaJuridicaResponseDTO(
             pessoaJuridica.getId(),
             pessoaJuridica.getNome(),
-            pessoaJuridica.getCnpj(),
+            formatCnpj(pessoaJuridica.getCnpj()), // Formatação do CNPJ
             pessoaJuridica.getNomeFantasia()
         );
+    }
+
+    private static String formatCnpj(String cnpj) {
+        if (cnpj != null && cnpj.length() == 14) {
+            return cnpj.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
+        }
+        return cnpj; // Retorna sem formatação se não tiver 14 dígitos
     }
 }

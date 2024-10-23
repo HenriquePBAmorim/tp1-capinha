@@ -35,7 +35,7 @@ public class FornecedorServiceImpl implements FornecedorService {
     public Fornecedor create(FornecedorRequestDTO dto) {
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setNome(dto.nome());
-        fornecedor.setCnpj(dto.cnpj());
+        fornecedor.setCnpj(dto.cnpj().replaceAll("[^\\d]", "")); // Remove formatação
         fornecedor.setTelefone(dto.telefone());
         fornecedor.setEmail(dto.email());
 
@@ -48,7 +48,7 @@ public class FornecedorServiceImpl implements FornecedorService {
     public Fornecedor update(Long id, FornecedorRequestDTO dto) {
         Fornecedor fornecedor = fornecedorRepository.findById(id);
         fornecedor.setNome(dto.nome());
-        fornecedor.setCnpj(dto.cnpj());
+        fornecedor.setCnpj(dto.cnpj().replaceAll("[^\\d]", "")); // Remove formatação
         fornecedor.setTelefone(dto.telefone());
         fornecedor.setEmail(dto.email());
 

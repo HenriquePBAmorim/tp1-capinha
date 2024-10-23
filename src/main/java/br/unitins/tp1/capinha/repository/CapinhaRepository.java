@@ -1,19 +1,15 @@
 package br.unitins.tp1.capinha.repository;
 
+import java.util.List;
+
 import br.unitins.tp1.capinha.model.Capinha;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
-import java.util.List;
-
 @ApplicationScoped
 public class CapinhaRepository implements PanacheRepository<Capinha> {
-
-    public List<Capinha> findByMaterial(String material) {
-        return find("material", material).list();
-    }
-
-    public List<Capinha> findByPrecoMenorQue(Double preco) {
-        return find("preco < ?1", preco).list();
+    
+    public List<Capinha> findByTipoProtecao(String tipoProtecao) {
+        return find("tipoProtecao LIKE ?1", "%" + tipoProtecao + "%").list();
     }
 }

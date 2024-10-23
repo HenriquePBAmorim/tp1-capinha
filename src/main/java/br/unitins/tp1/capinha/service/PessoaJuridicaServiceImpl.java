@@ -1,7 +1,6 @@
 package br.unitins.tp1.capinha.service;
 
 import java.util.List;
-
 import br.unitins.tp1.capinha.dto.PessoaJuridicaRequestDTO;
 import br.unitins.tp1.capinha.model.PessoaJuridica;
 import br.unitins.tp1.capinha.repository.PessoaJuridicaRepository;
@@ -35,7 +34,7 @@ public class PessoaJuridicaServiceImpl implements PessoaJuridicaService {
     public PessoaJuridica create(PessoaJuridicaRequestDTO dto) {
         PessoaJuridica pessoaJuridica = new PessoaJuridica();
         pessoaJuridica.setNome(dto.nome());
-        pessoaJuridica.setCnpj(dto.cnpj());
+        pessoaJuridica.setCnpj(dto.cnpj().replaceAll("[^\\d]", "")); // Remove formatação antes de salvar
         pessoaJuridica.setNomeFantasia(dto.nomeFantasia());
 
         pessoaJuridicaRepository.persist(pessoaJuridica);
@@ -47,7 +46,7 @@ public class PessoaJuridicaServiceImpl implements PessoaJuridicaService {
     public PessoaJuridica update(Long id, PessoaJuridicaRequestDTO dto) {
         PessoaJuridica pessoaJuridica = pessoaJuridicaRepository.findById(id);
         pessoaJuridica.setNome(dto.nome());
-        pessoaJuridica.setCnpj(dto.cnpj());
+        pessoaJuridica.setCnpj(dto.cnpj().replaceAll("[^\\d]", "")); // Remove formatação antes de salvar
         pessoaJuridica.setNomeFantasia(dto.nomeFantasia());
 
         return pessoaJuridica;

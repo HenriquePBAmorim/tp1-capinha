@@ -6,8 +6,9 @@ import br.unitins.tp1.capinha.dto.CapinhaRequestDTO;
 import br.unitins.tp1.capinha.model.Capinha;
 
 public interface CapinhaService {
-
     Capinha findById(Long id);
+
+    List<Capinha> findByTipoProtecao(String tipoProtecao);
 
     List<Capinha> findAll();
 
