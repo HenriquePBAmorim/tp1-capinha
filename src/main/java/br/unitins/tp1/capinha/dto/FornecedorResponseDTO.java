@@ -8,7 +8,7 @@ public record FornecedorResponseDTO(Long id, String nome, String cnpj, String te
         return new FornecedorResponseDTO(
             fornecedor.getId(),
             fornecedor.getNome(),
-            formatCnpj(fornecedor.getCnpj()), // Adicionar formatação
+            formatCnpj(fornecedor.getCnpj()), 
             fornecedor.getTelefone(),
             fornecedor.getEmail()
         );

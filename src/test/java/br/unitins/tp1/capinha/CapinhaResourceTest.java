@@ -91,7 +91,7 @@ public class CapinhaResourceTest {
             .then()
                 .statusCode(204);
 
-        // Verificando se foi apagado
+        
         Capinha capinha = capinhaService.findById(id);
         assertNull(capinha);
     }
@@ -113,7 +113,7 @@ public class CapinhaResourceTest {
                       "preco", is(19.99f),
                       "descricao", is("Capinha padrão"));
 
-        // Limpeza dos dados
+        
         capinhaService.delete(id);
     }
 }

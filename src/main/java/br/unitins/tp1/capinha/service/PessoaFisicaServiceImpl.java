@@ -1,7 +1,6 @@
 package br.unitins.tp1.capinha.service;
 
 import java.util.List;
-
 import br.unitins.tp1.capinha.dto.PessoaFisicaRequestDTO;
 import br.unitins.tp1.capinha.model.PessoaFisica;
 import br.unitins.tp1.capinha.model.Sexo;
@@ -47,11 +46,9 @@ public class PessoaFisicaServiceImpl implements PessoaFisicaService {
     @Transactional
     public PessoaFisica update(Long id, PessoaFisicaRequestDTO dto) {
         PessoaFisica pessoafisica = pessoafisicaRepository.findById(id);
-
         pessoafisica.setNome(dto.nome());
         pessoafisica.setCpf(dto.cpf());
         pessoafisica.setSexo(Sexo.valueOf(dto.idSexo()));
-
         return pessoafisica;
     }
 
@@ -60,6 +57,9 @@ public class PessoaFisicaServiceImpl implements PessoaFisicaService {
     public void delete(Long id) {
         pessoafisicaRepository.deleteById(id);
     }
-    
-}
 
+    @Override
+    public PessoaFisica findByCpf(String cpf) {
+        return pessoafisicaRepository.findByCpf(cpf);
+    }
+}

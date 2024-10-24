@@ -135,7 +135,7 @@ public class FornecedorResourceTest {
                       "[0].telefone", is("99999-9999"),
                       "[0].email", is("email@teste.com"));
 
-        // Limpeza dos dados
+        
         fornecedorService.delete(id);
     }
 }

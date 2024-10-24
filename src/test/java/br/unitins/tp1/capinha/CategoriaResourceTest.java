@@ -121,7 +121,7 @@ public class CategoriaResourceTest {
                       "nome", is("Intermediário"),
                       "descricao", is("Capinhas intermediárias"));
 
-        // Limpeza dos dados
+        
         categoriaService.delete(id);
     }
 }

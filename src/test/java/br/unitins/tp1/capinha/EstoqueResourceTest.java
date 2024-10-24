@@ -88,7 +88,7 @@ public class EstoqueResourceTest {
             .then()
                 .statusCode(204);
 
-        // Verificando se foi apagado
+        
         Estoque estoque = estoqueService.findById(id);
         assertNull(estoque);
     }
@@ -108,7 +108,7 @@ public class EstoqueResourceTest {
                       "nomeProduto", is("Produto Teste"),
                       "quantidade", is(50));
 
-        // Limpeza dos dados
+        
         estoqueService.delete(id);
     }
 }
